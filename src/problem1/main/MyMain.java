@@ -1,30 +1,32 @@
-package problem1.main;
 
+/*
+ *  Created by IntelliJ IDEA.
+ *  User: Vaibhav
+ *  Date: 23-Mar-20
+ *  Time: 7:17 PM
+ */
+package problem1.main;
+// executable class
 
 import problem1.mybst.MyBinarySearchTree;
-import problem4.myqueue.MyQueue;
+import problem1.node.TreeNode;
+
+import java.util.Scanner;
 
 public class MyMain {
     public static void main(String[] args) {
-        MyBinarySearchTree m = new MyBinarySearchTree();
-        MyQueue queue = new MyQueue();
-        //setting root
-        m.setRoot();
-        System.out.println("root set : " + m.getRoot().getData());
-
-
-        //insertion
-        for (int i = 0; i < 5; i++) {
-            m.insert(m.getRoot());
+        Scanner scan = new Scanner(System.in);
+        MyBinarySearchTree bst = new MyBinarySearchTree();
+        System.out.println("Enter number of nodes");/*-->*/
+        int n = scan.nextInt();
+        while (n-- > 0) {
+            System.out.println("Enter data");/*-->*/
+            int val = scan.nextInt();
+            TreeNode node = new TreeNode();
+            node.setData(val);
+            bst.insert(node);
         }
 
-
-        //printing left children
-        queue.queuePrint(m.getPre());
-        //counting nodes Not having left children
-        m.countNotLeft(m.getRoot());
-        //printing count
-        System.out.println(m.getCount());
+        System.out.println(bst.showLeft(bst.getRoot(), false));
     }
-
 }
