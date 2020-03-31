@@ -15,20 +15,45 @@ import java.util.Scanner;
 //executable class
 public class MyMain {
     public static void main(String[] args) {
-        MyCircularQueue m = new MyCircularQueue();
-        Node node;
+        Scanner scan = new Scanner(System.in);
+        MyCircularQueue circularQueue = new MyCircularQueue();
 
-        for (int i = 0; i < 5; i++) {
-            node = new Node(new Student());
-            m.enqueue(node);
+        System.out.println("Enter number of records you wants to enter");
+        int numberOfRecords = scan.nextInt();
+        while (numberOfRecords != 0) {
+            Student student = new Student();
+            Node node = new Node();
+
+            System.out.println("Enter name");
+            student.setName(scan.next().trim());
+            System.out.println("Enter roll number");
+            student.setRollNumber(scan.nextInt());
+            System.out.println("Enter backlogs");
+            int backLogs = scan.nextInt();
+            if (backLogs > 2) {
+                System.out.println("This student is not allowed");
+                continue;
+            }
+            student.setBackLogCounter(backLogs);
+
+            node.setStudent(student);
+
+            circularQueue.enQueue(node);
+
+            numberOfRecords--;
         }
-        m.printQueue();
 
-        m.remove(new Scanner(System.in).next());
-        m.printQueue();
+        System.out.println("****************************");
+        System.out.println("Data before deleting records");
+        System.out.println("****************************");
+        circularQueue.traverseQueue();
 
-        m.process(new Scanner(System.in).next());
+        System.out.println("Removing zero backlog students");
+        circularQueue.removeZeroBacklogRecords();
 
-
+        System.out.println("****************************");
+        System.out.println("Data after deleting records");
+        System.out.println("****************************");
+        circularQueue.traverseQueue();
     }
 }
