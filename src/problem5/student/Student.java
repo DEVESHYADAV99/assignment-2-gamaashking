@@ -63,4 +63,9 @@ public class Student {
         this.apperingcount = apperingcount;
     }
 
+    public void setRollNumber(int roll) {
+    }
+
+    public boolean getRollNumber() {
+    }
 }
