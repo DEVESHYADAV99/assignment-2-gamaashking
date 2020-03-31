@@ -1,25 +1,22 @@
+/*
+ *  Created by IntelliJ IDEA.
+ *  User: Vaibhav
+ *  Date: 23-Mar-20
+ *  Time: 7:06 PM
+ */
 package problem5.student;
-
-import java.util.Scanner;
-
+// to store student information and properties
 public class Student {
     private String name;
-    private int rollno, backlog, apperingcount;
-    private Scanner sc;
+    private int rollNumber;
+    private int backLogCounter;
 
+    public int getBackLogCounter() {
+        return backLogCounter;
+    }
 
-    public Student() {
-        sc = new Scanner(System.in);
-        System.out.print("Name :");
-        this.name = sc.next();
-        System.out.print("Roll.no : ");
-        this.rollno = sc.nextInt();
-        System.out.print("Backlog_count : ");
-        this.backlog = sc.nextInt();
-        System.out.print("appering_count");
-        this.apperingcount = sc.nextInt();
-
-
+    public void setBackLogCounter(int backLogCounter) {
+        this.backLogCounter = backLogCounter;
     }
 
     public String getName() {
@@ -30,42 +27,20 @@ public class Student {
         this.name = name;
     }
 
-    public int getRollno() {
-        return rollno;
+    public int getRollNumber() {
+        return rollNumber;
     }
 
-    public void setRollno(int rollno) {
-        this.rollno = rollno;
+    public void setRollNumber(int rollNumber) {
+        this.rollNumber = rollNumber;
     }
 
     @Override
     public String toString() {
-        return "name='" + name + '\'' +
-                ", rollno=" + rollno +
-                ", backlog=" + backlog +
-                ", apperingcount=" + apperingcount
-                ;
-    }
-
-    public int getBacklog() {
-        return backlog;
-    }
-
-    public void setBacklog(int backlog) {
-        this.backlog = backlog;
-    }
-
-    public int getApperingcount() {
-        return apperingcount;
-    }
-
-    public void setApperingcount(int apperingcount) {
-        this.apperingcount = apperingcount;
-    }
-
-    public void setRollNumber(int roll) {
-    }
-
-    public boolean getRollNumber() {
+        return "---------------------------------------" + "\n" +
+                "Name -- " + getName() + "\n" +
+                "Roll Number -- " + getRollNumber() + "\n" +
+                "Back Log Value -- " + getBackLogCounter() + "\n" +
+                "---------------------------------------";
     }
 }
