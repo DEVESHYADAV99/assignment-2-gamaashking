@@ -1,36 +1,36 @@
-
+/*
+ *  Created by IntelliJ IDEA.
+ *  User: Vaibhav
+ *  Date: 23-Mar-20
+ *  Time: 7:13 PM
+ */
 package problem3.node;
-
 
 import problem5.student.Student;
 
 public class Node {
+    private Student student;
+    private Node nextNode;
 
-
-    private Student s;
-    private Node next;
-
-
-    public Node() {
-        s = new Student();
-        next = null;
+    public Student getStudent() {
+        return student;
     }
 
-    public Student getS() {
-        return s;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public void setS(Student s) {
-        this.s = s;
+    public Node getNextNode() {
+        return nextNode;
     }
 
-    public Node getNext() {
-        return next;
+    public void setNextNode(Node nextNode) {
+        this.nextNode = nextNode;
     }
 
-    public void setNext(Node next) {
-        this.next = next;
+    @Override
+    public String toString() {
+        return "Node " + "\n" +
+                getStudent();
     }
-
-
 }
