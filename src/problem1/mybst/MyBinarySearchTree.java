@@ -1,37 +1,23 @@
-
+/*
+ *  Created by IntelliJ IDEA.
+ *  User: Vaibhav
+ *  Date: 23-Mar-20
+ *  Time: 7:17 PM
+ */
 package problem1.mybst;
 
-
 import problem1.node.TreeNode;
-import problem4.myqueue.MyQueue;
-import problem4.myqueue.Node;
 
+import java.util.ArrayList;
 
 // to implement BinarySearchTree
 public class MyBinarySearchTree {
 
-
-    private static int count;
-    private TreeNode newnode, root, tmp;
-    private MyQueue pre;
-    private MyQueue post;
+    private TreeNode root;
+    private ArrayList<Integer> arrayList;
 
     public MyBinarySearchTree() {
-        tmp = null;
-        root = null;
-        MyBinarySearchTree.count = 0;
-        post = new MyQueue();
-        pre = new MyQueue();
-    }
-
-    //seeting root node
-    public void setRoot() {
-        newnode = new TreeNode();
-        if (root == null) {
-            root = newnode;
-            tmp = root;
-            newnode = null;
-        }
+        arrayList = new ArrayList<>();
     }
 
     public TreeNode getRoot() {
@@ -42,122 +28,76 @@ public class MyBinarySearchTree {
         this.root = root;
     }
 
-    public TreeNode getNewnode() {
-        return newnode;
-    }
+    public void insert(TreeNode newNode) {
 
-    public void setNewnode(TreeNode newnode) {
-        this.newnode = newnode;
-    }
-
-    public TreeNode getTmp() {
-        return tmp;
-    }
-
-    public void setTmp(TreeNode tmp) {
-        this.tmp = tmp;
-    }
-
-    public MyQueue getPre() {
-        return pre;
-    }
-
-    public void setPre(MyQueue pre) {
-        this.pre = pre;
-    }
-
-    public MyQueue getPost() {
-        return post;
-    }
-
-    public void setPost(MyQueue post) {
-        this.post = post;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int ctr) {
-        MyBinarySearchTree.count = ctr;
-    }
-
-    //setting binary tree
-    public void insert(TreeNode tmproot) {
-        if (newnode == null) {
-            newnode = new TreeNode();
+        if (getRoot() == null) {
+            setRoot(newNode);
+            return;
         }
 
-        try {
-            if (newnode.getData() <= tmproot.getData()) {
-                System.out.println("left traversal...");
-                if (tmproot.getLeft() == null) {
-                    tmproot.setLeft(newnode);
-                    System.out.println("node inserted left");
-                    pre.enqueue(new Node(newnode));//only left insertion
-                    newnode = null;
-                    return;
-                } else {
-                    System.out.println("left not empty changing tmproot ");
-                    insert(tmproot.getLeft());
-                }
+        TreeNode parent = null;
+        TreeNode current = getRoot();
+        boolean isLeft = true;
+
+        while (current != null) {
+            parent = current;
+            if (newNode.getData() > current.getData()) {
+                current = current.getRightNode();
+                isLeft = false;
+            } else {
+                current = current.getLeftNode();
+                isLeft = true;
             }
-        } catch (NullPointerException ignore) {
         }
-
-
-        try {
-            if (newnode.getData() > tmproot.getData()) {
-                System.out.println("Right traversal...");
-                if (tmproot.getRight() == null) {
-                    tmproot.setRight(newnode);
-                    System.out.println("Node inserted right");
-                    newnode = null;
-                } else {
-                    System.out.println("Right not empty changing tmproot");
-                    insert(tmproot.getRight());
-                }
-            }
-        } catch (NullPointerException ignore) {
-        }
-
+        if (isLeft)
+            parent.setLeftNode(newNode);
+        else
+            parent.setRightNode(newNode);
     }
 
-    public void countNotLeft(TreeNode node) {
-        if (node == null) {
+    public int showLeft(TreeNode node, boolean isLeft) {
+        int c = 0;
+
+        if (node == null)
+            return c;
+
+        if (isLeft)
+            System.out.println(node);
+
+        if (node.getLeftNode() == null)
+            c++;
+
+        c += showLeft(node.getLeftNode(), true);
+        c += showLeft(node.getRightNode(), false);
+        return c;
+    }
+
+    public void showTreeData(TreeNode node) {
+        if (node == null)
             return;
-        }
-        countNotLeft(node.getLeft());
-        if (node.getLeft() != null) {
-            ++count;
-        }
-        countNotLeft(node.getRight());
-
+        System.out.println(node);
+        showTreeData(node.getLeftNode());
+        showTreeData(node.getRightNode());
     }
 
-    //preorder
-    public void preOrder(TreeNode node) {
-        if (node == null) {
+    private void addElementToList(TreeNode node) {
+        if (node == null)
             return;
-        }
-
-
-        preOrder(node.getLeft());
-        preOrder(node.getRight());
+        arrayList.add(node.getData());
+        addElementToList(node.getLeftNode());
+        addElementToList(node.getRightNode());
     }
 
-    //postorder
-    public void postOrder(TreeNode node) {
-        if (node == null) {
+    public ArrayList<Integer> getPreOrderList() {
+        addElementToList(getRoot());
+        return arrayList;
+    }
+
+    public void postOrderTraversal(TreeNode node) {
+        if (node == null)
             return;
-        }
-
-        postOrder(node.getLeft());
-        postOrder(node.getRight());
-
-
+        postOrderTraversal(node.getLeftNode());
+        postOrderTraversal(node.getRightNode());
+        System.out.println(node);
     }
-
 }
-
-
